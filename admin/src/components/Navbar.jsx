@@ -21,13 +21,13 @@ function Navbar() {
   const location = useLocation();
 
   return (
-    <div className="navbar w-full bg-base-300">
-      <label htmlFor="my-drawer" className="btn btn-square btn-ghost" aria-label="open sidebar">
-        <PanelLeftIcon className="size-5" />
+    <div className="navbar w-full sticky top-0 z-50 backdrop-blur-xl bg-base-100/80 border-b border-base-200/50 shadow-sm transition-all duration-300">
+      <label htmlFor="my-drawer" className="btn btn-square btn-ghost hover:bg-base-200/50" aria-label="open sidebar">
+        <PanelLeftIcon className="size-5 text-base-content/80" />
       </label>
 
       <div className="flex-1 px-4">
-        <h1 className="text-xl font-bold">
+        <h1 className="text-2xl font-extrabold bg-linear-to-r from-primary to-secondary bg-clip-text text-transparent drop-shadow-sm">
           {NAVIGATION.find((item) => item.path === location.pathname)?.name || "Dashboard"}
         </h1>
       </div>

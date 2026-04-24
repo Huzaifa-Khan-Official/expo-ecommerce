@@ -64,9 +64,9 @@ function OrdersScreen() {
   return (
     <SafeScreen>
       {/* Header */}
-      <View className="px-6 pb-5 border-b border-surface flex-row items-center">
+      <View className="px-6 pb-5 mt-6 border-b border-surface flex-row items-center">
         <TouchableOpacity onPress={() => router.back()} className="mr-4">
-          <Ionicons name="arrow-back" size={28} color="#FFFFFF" />
+          <Ionicons name="arrow-back" size={28} color="#000000ff" />
         </TouchableOpacity>
         <Text className="text-text-primary text-2xl font-bold">My Orders</Text>
       </View>
@@ -144,7 +144,7 @@ function OrdersScreen() {
                     <View>
                       <Text className="text-text-secondary text-xs mb-1">{totalItems} items</Text>
                       <Text className="text-primary font-bold text-xl">
-                        ${order.totalPrice.toFixed(2)}
+                        Rs.{order.totalPrice.toFixed(2)}
                       </Text>
                     </View>
 

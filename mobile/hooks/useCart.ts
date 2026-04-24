@@ -16,7 +16,6 @@ const useCart = () => {
       console.log("🛒 [useCart] Fetching cart from:", api.defaults.baseURL + "/cart");
       try {
         const { data } = await api.get<{ cart: Cart }>("/cart");
-        console.log("✅ [useCart] Cart loaded, items:", data.cart?.items?.length || 0);
         return data.cart;
       } catch (error: any) {
         console.error("❌ [useCart] Error fetching cart:", error?.message);
@@ -31,7 +30,6 @@ const useCart = () => {
       console.log("➕ [useCart] Adding to cart:", { productId, quantity });
       try {
         const { data } = await api.post<{ cart: Cart }>("/cart", { productId, quantity });
-        console.log("✅ [useCart] Added successfully, cart items:", data.cart?.items?.length || 0);
         return data.cart;
       } catch (error: any) {
         console.error("❌ [useCart] Error adding to cart:", error?.message);
@@ -85,6 +83,7 @@ const useCart = () => {
     removeFromCart: removeFromCartMutation.mutate,
     clearCart: clearCartMutation.mutate,
     isAddingToCart: addToCartMutation.isPending,
+    addingToCartId: addToCartMutation.variables?.productId,
     isUpdating: updateQuantityMutation.isPending,
     isRemoving: removeFromCartMutation.isPending,
     isClearing: clearCartMutation.isPending,

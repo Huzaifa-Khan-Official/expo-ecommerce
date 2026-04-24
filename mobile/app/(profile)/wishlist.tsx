@@ -42,9 +42,9 @@ function WishlistScreen() {
   return (
     <SafeScreen>
       {/* HEADER */}
-      <View className="px-6 pb-5 border-b border-surface flex-row items-center">
+      <View className="px-6 pb-5 mt-2 border-b border-surface flex-row items-center">
         <TouchableOpacity onPress={() => router.back()} className="mr-4">
-          <Ionicons name="arrow-back" size={28} color="#FFFFFF" />
+          <Ionicons name="arrow-back" size={28} color="#000000ff" />
         </TouchableOpacity>
         <Text className="text-text-primary text-2xl font-bold">Wishlist</Text>
         <Text className="text-text-secondary text-sm ml-auto">
@@ -81,7 +81,7 @@ function WishlistScreen() {
                 key={item._id}
                 className="bg-surface rounded-3xl overflow-hidden mb-3"
                 activeOpacity={0.8}
-                // onPress={() => router.push(`/product/${item._id}`)}
+              // onPress={() => router.push(`/product/${item._id}`)}
               >
                 <View className="flex-row p-4">
                   <Image
@@ -95,7 +95,7 @@ function WishlistScreen() {
                       {item.name}
                     </Text>
                     <Text className="text-primary font-bold text-xl mb-2">
-                      ${item.price.toFixed(2)}
+                      Rs.{item.price.toFixed(2)}
                     </Text>
 
                     {item.stock > 0 ? (
@@ -153,7 +153,7 @@ function LoadingUI() {
     <SafeScreen>
       <View className="px-6 pb-5 border-b border-surface flex-row items-center">
         <TouchableOpacity onPress={() => router.back()} className="mr-4">
-          <Ionicons name="arrow-back" size={28} color="#FFFFFF" />
+          <Ionicons name="arrow-back" size={28} color="#000000ff" />
         </TouchableOpacity>
         <Text className="text-text-primary text-2xl font-bold">Wishlist</Text>
       </View>
@@ -168,9 +168,9 @@ function LoadingUI() {
 function ErrorUI() {
   return (
     <SafeScreen>
-      <View className="px-6 pb-5 border-b border-surface flex-row items-center">
+      <View className="px-6 pb-5 mt-2 border-b border-surface flex-row items-center">
         <TouchableOpacity onPress={() => router.back()} className="mr-4">
-          <Ionicons name="arrow-back" size={28} color="#fff" />
+          <Ionicons name="arrow-back" size={28} color="#000000ff" />
         </TouchableOpacity>
         <Text className="text-text-primary text-2xl font-bold">Wishlist</Text>
       </View>

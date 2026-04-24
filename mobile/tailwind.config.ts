@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+// @ts-expect-error - NativeWind preset does not have a properly recognized default export type in this TS configuration
 import nativewindPreset from 'nativewind/preset';
 
 const config: Config = {
@@ -9,28 +10,28 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#1DB954", // spotify green
-          light: "#1ED760",
-          dark: "#1AA34A",
+          DEFAULT: "#5c7f67", // sage green
+          light: "#7a9e85",
+          dark: "#425e4c",
         },
         background: {
-          DEFAULT: "#121212", // dark background
-          light: "#181818",
-          lighter: "#282828",
+          DEFAULT: "#E9E6E1", // creamy off-white
+          light: "#F2F0EC",
+          lighter: "#F9F8F6",
         },
         surface: {
-          DEFAULT: "#282828",
-          light: "#3E3E3E",
+          DEFAULT: "#FFFFFF",
+          light: "#F9F8F6",
         },
         text: {
-          primary: "#FFFFFF",
-          secondary: "#B3B3B3",
-          tertiary: "#6A6A6A",
+          primary: "#1F2937", // dark gray
+          secondary: "#4B5563",
+          tertiary: "#9CA3AF",
         },
         accent: {
-          DEFAULT: "#1DB954",
-          red: "#F44336",
-          yellow: "#FFC107",
+          DEFAULT: "#e0a96d", // soft peach/pink
+          red: "#EF4444",
+          yellow: "#F59E0B",
         },
       },
     },

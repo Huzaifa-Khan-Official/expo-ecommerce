@@ -167,7 +167,7 @@ function AddressesScreen() {
               onPress={handleAddAddress}
             >
               <View className="flex-row items-center">
-                <Ionicons name="add-circle-outline" size={24} color="#121212" />
+                <Ionicons name="add-circle-outline" size={24} color="#ffffffff" />
                 <Text className="text-background font-bold text-base ml-2">Add New Address</Text>
               </View>
             </TouchableOpacity>

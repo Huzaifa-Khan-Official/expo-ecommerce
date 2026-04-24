@@ -28,7 +28,7 @@ const AddressSelectionModal = ({
           <View className="flex-row items-center justify-between p-6 border-b border-surface">
             <Text className="text-text-primary text-2xl font-bold">Select Address</Text>
             <TouchableOpacity onPress={onClose} className="bg-surface rounded-full p-2">
-              <Ionicons name="close" size={24} color="#FFFFFF" />
+              <Ionicons name="close" size={24} color="#000000ff" />
             </TouchableOpacity>
           </View>
 
@@ -43,11 +43,10 @@ const AddressSelectionModal = ({
                 {addresses?.map((address: Address) => (
                   <TouchableOpacity
                     key={address._id}
-                    className={`bg-surface rounded-3xl p-6 border-2 ${
-                      selectedAddress?._id === address._id
+                    className={`bg-surface rounded-3xl p-6 border-2 ${selectedAddress?._id === address._id
                         ? "border-primary"
                         : "border-background-lighter"
-                    }`}
+                      }`}
                     activeOpacity={0.7}
                     onPress={() => setSelectedAddress(address)}
                   >

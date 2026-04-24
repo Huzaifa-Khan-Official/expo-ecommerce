@@ -20,10 +20,10 @@ interface ProductsGridProps {
 }
 
 const ProductsGrid = ({ products, isLoading, isError }: ProductsGridProps) => {
-  const { isInWishlist, toggleWishlist, isAddingToWishlist, isRemovingFromWishlist } =
+  const { isInWishlist, toggleWishlist, isAddingToWishlist, addingToWishlistId, isRemovingFromWishlist, removingFromWishlistId } =
     useWishlist();
 
-  const { isAddingToCart, addToCart } = useCart();
+  const { isAddingToCart, addingToCartId, addToCart } = useCart();
 
   const handleAddToCart = (productId: string, productName: string) => {
     addToCart(
@@ -39,77 +39,94 @@ const ProductsGrid = ({ products, isLoading, isError }: ProductsGridProps) => {
     );
   };
 
-  const renderProduct = ({ item: product }: { item: Product }) => (
-    <TouchableOpacity
-      className="bg-surface rounded-3xl overflow-hidden mb-3"
-      style={{ width: "48%" }}
-      activeOpacity={0.8}
-      onPress={() => router.push(`/product/${product._id}`)}
-    >
-      <View className="relative">
-        <Image
-          source={{ uri: product.images[0] }}
-          className="w-full h-44 bg-background-lighter"
-          resizeMode="cover"
-        />
+  const renderProduct = ({ item: product }: { item: Product }) => {
+    const isWishlistLoading = (isAddingToWishlist && addingToWishlistId === product._id) || (isRemovingFromWishlist && removingFromWishlistId === product._id);
+    const isCartLoading = isAddingToCart && addingToCartId === product._id;
 
-        <TouchableOpacity
-          className="absolute top-3 right-3 bg-black/30 backdrop-blur-xl p-2 rounded-full"
-          activeOpacity={0.7}
-          onPress={() => toggleWishlist(product._id)}
-          disabled={isAddingToWishlist || isRemovingFromWishlist}
-        >
-          {isAddingToWishlist || isRemovingFromWishlist ? (
-            <ActivityIndicator size="small" color="#FFFFFF" />
-          ) : (
-            <Ionicons
-              name={isInWishlist(product._id) ? "heart" : "heart-outline"}
-              size={18}
-              color={isInWishlist(product._id) ? "#FF6B6B" : "#FFFFFF"}
-            />
-          )}
-        </TouchableOpacity>
-      </View>
-
-      <View className="p-3">
-        <Text className="text-text-secondary text-xs mb-1">{product.category}</Text>
-        <Text className="text-text-primary font-bold text-sm mb-2" numberOfLines={2}>
-          {product.name}
-        </Text>
-
-        <View className="flex-row items-center mb-2">
-          <Ionicons name="star" size={12} color="#FFC107" />
-          <Text className="text-text-primary text-xs font-semibold ml-1">
-            {product.averageRating.toFixed(1)}
-          </Text>
-          <Text className="text-text-secondary text-xs ml-1">({product.totalReviews})</Text>
-        </View>
-
-        <View className="flex-row items-center justify-between">
-          <Text className="text-primary font-bold text-lg">${product.price.toFixed(2)}</Text>
+    return (
+      <TouchableOpacity
+        className="bg-surface rounded-3xl overflow-hidden mb-4 border border-background-light shadow-sm"
+        style={{ width: "48%" }}
+        activeOpacity={0.8}
+        onPress={() => router.push(`/product/${product._id}`)}
+      >
+        <View className="relative">
+          <Image
+            source={{ uri: product.images[0] }}
+            className="w-full h-48 bg-background-light"
+            resizeMode="cover"
+          />
 
           <TouchableOpacity
-            className="bg-primary rounded-full w-8 h-8 items-center justify-center"
+            className="absolute top-3 right-3 bg-white/50 backdrop-blur-md p-2 rounded-full shadow-sm"
             activeOpacity={0.7}
-            onPress={() => handleAddToCart(product._id, product.name)}
-            disabled={isAddingToCart}
+            onPress={() => toggleWishlist(product._id)}
+            disabled={isWishlistLoading}
           >
-            {isAddingToCart ? (
-              <ActivityIndicator size="small" color="#121212" />
+            {isWishlistLoading ? (
+              <ActivityIndicator size="small" color="#5c7f67" />
             ) : (
-              <Ionicons name="add" size={18} color="#121212" />
+              <Ionicons
+                name={isInWishlist(product._id) ? "heart" : "heart-outline"}
+                size={22}
+                color={isInWishlist(product._id) ? "#d40b00ff" : "#4B5563"}
+              />
             )}
           </TouchableOpacity>
         </View>
-      </View>
-    </TouchableOpacity>
-  );
+
+        <View className="p-4">
+          <Text className="text-primary font-semibold text-xs mb-1 uppercase tracking-wider">{product.category}</Text>
+          <Text className="text-text-primary font-bold text-sm mb-2" numberOfLines={2}>
+            {product.name}
+          </Text>
+
+          <View className="flex-row items-center mb-3">
+            <Ionicons name="star" size={14} color="#F59E0B" />
+            <Text className="text-text-primary text-xs font-bold ml-1">
+              {product.averageRating.toFixed(1)}
+            </Text>
+            <Text className="text-text-tertiary text-xs ml-1">({product.totalReviews})</Text>
+          </View>
+
+          <View className="flex-row items-center justify-between">
+            <Text className="text-text-primary font-extrabold text-lg">Rs.{product.price.toFixed(2)}</Text>
+
+            <TouchableOpacity
+              className="bg-primary rounded-full w-9 h-9 items-center justify-center shadow-sm"
+              activeOpacity={0.7}
+              onPress={() => handleAddToCart(product._id, product.name)}
+              disabled={isCartLoading}
+            >
+              {isCartLoading ? (
+                <ActivityIndicator size="small" color="#FFFFFF" />
+              ) : (
+                <Ionicons name="add" size={20} color="#FFFFFF" />
+              )}
+            </TouchableOpacity>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  };
 
   if (isLoading) {
     return (
-      <View className="py-20 items-center justify-center">
-        <ActivityIndicator size="large" color="#00D9FF" />
-        <Text className="text-text-secondary mt-4">Loading products...</Text>
+      <View className="flex-row flex-wrap justify-between">
+        {[1, 2, 3, 4, 5, 6].map((i) => (
+          <View key={i} className="bg-surface rounded-3xl overflow-hidden mb-4 border border-background-light" style={{ width: "48%" }}>
+            <View className="w-full h-48 bg-background-light animate-pulse" />
+            <View className="p-4">
+              <View className="h-3 w-1/3 bg-background-light rounded-full mb-2 animate-pulse" />
+              <View className="h-4 w-full bg-background-light rounded-full mb-1 animate-pulse" />
+              <View className="h-4 w-2/3 bg-background-light rounded-full mb-4 animate-pulse" />
+              <View className="flex-row items-center justify-between mt-2">
+                <View className="h-5 w-1/3 bg-background-light rounded-full animate-pulse" />
+                <View className="h-9 w-9 bg-background-light rounded-full animate-pulse" />
+              </View>
+            </View>
+          </View>
+        ))}
       </View>
     );
   }
@@ -117,7 +134,7 @@ const ProductsGrid = ({ products, isLoading, isError }: ProductsGridProps) => {
   if (isError) {
     return (
       <View className="py-20 items-center justify-center">
-        <Ionicons name="alert-circle-outline" size={48} color="#FF6B6B" />
+        <Ionicons name="alert-circle-outline" size={48} color="#EF4444" />
         <Text className="text-text-primary font-semibold mt-4">Failed to load products</Text>
         <Text className="text-text-secondary text-sm mt-2">Please try again later</Text>
       </View>

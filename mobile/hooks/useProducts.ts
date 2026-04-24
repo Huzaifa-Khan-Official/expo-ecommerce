@@ -8,11 +8,8 @@ const useProducts = () => {
   const result = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      console.log("📱 [useProducts] Fetching from:", api.defaults.baseURL + "/products");
       try {
         const { data } = await api.get<Product[]>("/products");
-        console.log("✅ [useProducts] Success! Got", data?.length, "products");
-        console.log("📦 First product:", data?.[0]);
         return data;
       } catch (error: any) {
         console.error("❌ [useProducts] Error:", error?.message);
@@ -22,8 +19,6 @@ const useProducts = () => {
       }
     },
   });
-
-  console.log("📊 [useProducts] Query state:", { isLoading: result.isLoading, isError: result.isError, dataLength: result.data?.length });
 
   return result;
 };

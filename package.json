@@ -24,5 +24,8 @@
   "homepage": "https://github.com/burakorkmez/expo-ecommerce#readme",
   "dependencies": {
     "mongodb": "^7.2.0"
+  },
+  "devDependencies": {
+    "@clerk/types": "^4.101.23"
   }
 }

@@ -1,4 +1,24 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: forest;
+  themes: garden;
+}
+
+@plugin "daisyui/theme" {
+  name: "garden";
+  default: true;
+  color-scheme: "light";
+  
+  --color-base-100: #E9E6E1;
+  --color-base-200: #F2F0EC;
+  --color-base-300: #FFFFFF;
+  --color-base-content: #1F2937;
+  
+  --color-primary: #5c7f67;
+  --color-secondary: #7a9e85;
+  --color-accent: #e0a96d;
+
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  --color-info: #3b82f6;
 }

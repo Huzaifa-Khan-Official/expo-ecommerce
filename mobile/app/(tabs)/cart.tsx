@@ -36,7 +36,7 @@ const CartScreen = () => {
 
   const cartItems = cart?.items || [];
   const subtotal = cartTotal;
-  const shipping = 10.0; // $10 shipping fee
+  const shipping = 10.0; // Rs.10 shipping fee
   const tax = subtotal * 0.08; // 8% tax
   const total = subtotal + shipping + tax;
 
@@ -137,7 +137,7 @@ const CartScreen = () => {
         });
 
         Alert.alert("Success", "Your payment was successful! Your order is being processed.", [
-          { text: "OK", onPress: () => {} },
+          { text: "OK", onPress: () => { } },
         ]);
         clearCart();
       }
@@ -192,12 +192,12 @@ const CartScreen = () => {
                     >
                       {item.product.name}
                     </Text>
-                    <View className="flex-row items-center mt-2">
-                      <Text className="text-primary font-bold text-2xl">
-                        ${(item.product.price * item.quantity).toFixed(2)}
+                    <View className="mt-2">
+                      <Text className="text-primary font-bold text-lg">
+                        Rs.{(item.product.price * item.quantity).toFixed(2)}
                       </Text>
-                      <Text className="text-text-secondary text-sm ml-2">
-                        ${item.product.price.toFixed(2)} each
+                      <Text className="text-text-secondary text-sm">
+                        Rs.{item.product.price.toFixed(2)} each
                       </Text>
                     </View>
                   </View>
@@ -212,11 +212,11 @@ const CartScreen = () => {
                       {isUpdating ? (
                         <ActivityIndicator size="small" color="#FFFFFF" />
                       ) : (
-                        <Ionicons name="remove" size={18} color="#FFFFFF" />
+                        <Ionicons name="remove" size={18} color="#000000ff" />
                       )}
                     </TouchableOpacity>
 
-                    <View className="mx-4 min-w-[32px] items-center">
+                    <View className="mx-2 min-w-[20px] items-center">
                       <Text className="text-text-primary font-bold text-lg">{item.quantity}</Text>
                     </View>
 
@@ -229,7 +229,7 @@ const CartScreen = () => {
                       {isUpdating ? (
                         <ActivityIndicator size="small" color="#121212" />
                       ) : (
-                        <Ionicons name="add" size={18} color="#121212" />
+                        <Ionicons name="add" size={18} color="#ffffffff" />
                       )}
                     </TouchableOpacity>
 
@@ -264,7 +264,7 @@ const CartScreen = () => {
             </Text>
           </View>
           <View className="flex-row items-center">
-            <Text className="text-text-primary font-bold text-xl">${total.toFixed(2)}</Text>
+            <Text className="text-text-primary font-bold text-xl">Rs.{total.toFixed(2)}</Text>
           </View>
         </View>
 
@@ -281,7 +281,7 @@ const CartScreen = () => {
             ) : (
               <>
                 <Text className="text-background font-bold text-lg mr-2">Checkout</Text>
-                <Ionicons name="arrow-forward" size={20} color="#121212" />
+                <Ionicons name="arrow-forward" size={20} color="#ffffffff" />
               </>
             )}
           </View>

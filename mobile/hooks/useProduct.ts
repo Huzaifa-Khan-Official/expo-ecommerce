@@ -5,10 +5,10 @@ import { Product } from "@/types";
 export const useProduct = (productId: string) => {
   const api = useApi();
 
-  const result = useQuery<Product>({
+  const result = useQuery({
     queryKey: ["product", productId],
     queryFn: async () => {
-      const { data } = await api.get(`/products/${productId}`);
+      const { data } = await api.get<Product>(`/products/${productId}`);
       return data;
     },
     enabled: !!productId,

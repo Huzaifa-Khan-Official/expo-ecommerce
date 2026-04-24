@@ -15,31 +15,38 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#1DB954",
-        tabBarInactiveTintColor: "#B3B3B3",
+        tabBarActiveTintColor: "#5c7f67",
+        tabBarInactiveTintColor: "#9CA3AF",
+        tabBarActiveBackgroundColor: "transparent",
+        tabBarInactiveBackgroundColor: "transparent",
         tabBarStyle: {
           position: "absolute",
           backgroundColor: "transparent",
           borderTopWidth: 0,
-          height: 32 + insets.bottom,
-          paddingTop: 4,
-          marginHorizontal: 100,
-          marginBottom: insets.bottom,
-          borderRadius: 24,
+          height: 64,
+          paddingTop: 8,
+          marginHorizontal: 40,
+          marginBottom: insets.bottom > 0 ? insets.bottom : 20,
+          borderRadius: 32,
           overflow: "hidden",
+          elevation: 0, // Removes Android shadow artifacts on transparent views
         },
         tabBarBackground: () => (
           <BlurView
-            intensity={80}
-            tint="dark"
+            intensity={90}
+            tint="light"
             style={StyleSheet.absoluteFill}
             // StyleSheet.absoluteFill is equal to this 👇
             // { position: "absolute", top: 0, right: 0, left: 0, bottom: 0 }
           />
         ),
         tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: 600,
+          fontSize: 11,
+          fontWeight: "600",
+          marginBottom: 4,
+        },
+        tabBarItemStyle: {
+          backgroundColor: "transparent",
         },
         headerShown: false,
       }}

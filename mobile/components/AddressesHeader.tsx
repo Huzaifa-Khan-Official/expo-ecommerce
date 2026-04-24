@@ -4,9 +4,9 @@ import { router } from "expo-router";
 
 export default function AddressesHeader() {
   return (
-    <View className="px-6 pb-5 border-b border-surface flex-row items-center">
+    <View className="px-6 pb-5 mt-2 border-b border-surface flex-row items-center">
       <TouchableOpacity onPress={() => router.back()} className="mr-4">
-        <Ionicons name="arrow-back" size={28} color="#FFFFFF" />
+        <Ionicons name="arrow-back" size={28} color="#000000ff" />
       </TouchableOpacity>
       <Text className="text-text-primary text-2xl font-bold">My Addresses</Text>
     </View>

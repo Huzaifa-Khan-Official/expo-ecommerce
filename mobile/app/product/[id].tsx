@@ -50,7 +50,7 @@ const ProductDetailScreen = () => {
   return (
     <SafeScreen>
       {/* HEADER */}
-      <View className="absolute top-0 left-0 right-0 z-10 px-6 pt-20 pb-4 flex-row items-center justify-between">
+      <View className="absolute top-0 left-0 right-0 z-10 px-6 pt-12 pb-4 flex-row items-center justify-between">
         <TouchableOpacity
           className="bg-black/50 backdrop-blur-xl w-12 h-12 rounded-full items-center justify-center"
           onPress={() => router.back()}
@@ -60,9 +60,8 @@ const ProductDetailScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          className={`w-12 h-12 rounded-full items-center justify-center ${
-            isInWishlist(product._id) ? "bg-primary" : "bg-black/50 backdrop-blur-xl"
-          }`}
+          className={`w-12 h-12 rounded-full items-center justify-center ${isInWishlist(product._id) ? "bg-primary" : "bg-black/50 backdrop-blur-xl"
+            }`}
           onPress={() => toggleWishlist(product._id)}
           disabled={isAddingToWishlist || isRemovingFromWishlist}
           activeOpacity={0.7}
@@ -107,9 +106,8 @@ const ProductDetailScreen = () => {
             {product.images.map((_: any, index: number) => (
               <View
                 key={index}
-                className={`h-2 rounded-full ${
-                  index === selectedImageIndex ? "bg-primary w-6" : "bg-white/50 w-2"
-                }`}
+                className={`h-2 rounded-full ${index === selectedImageIndex ? "bg-primary w-6" : "bg-white/50 w-2"
+                  }`}
               />
             ))}
           </View>
@@ -153,7 +151,7 @@ const ProductDetailScreen = () => {
 
           {/* Price */}
           <View className="flex-row items-center mb-6">
-            <Text className="text-primary text-4xl font-bold">${product.price.toFixed(2)}</Text>
+            <Text className="text-primary text-4xl font-bold">Rs.{product.price.toFixed(2)}</Text>
           </View>
 
           {/* Quantity */}
@@ -167,7 +165,7 @@ const ProductDetailScreen = () => {
                 activeOpacity={0.7}
                 disabled={!inStock}
               >
-                <Ionicons name="remove" size={24} color={inStock ? "#FFFFFF" : "#666"} />
+                <Ionicons name="remove" size={24} color={inStock ? "#000000ff" : "#666"} />
               </TouchableOpacity>
 
               <Text className="text-text-primary text-xl font-bold mx-6">{quantity}</Text>
@@ -181,7 +179,7 @@ const ProductDetailScreen = () => {
                 <Ionicons
                   name="add"
                   size={24}
-                  color={!inStock || quantity >= product.stock ? "#666" : "#121212"}
+                  color={!inStock || quantity >= product.stock ? "#666" : "#ffffffff"}
                 />
               </TouchableOpacity>
             </View>
@@ -205,13 +203,12 @@ const ProductDetailScreen = () => {
           <View className="flex-1">
             <Text className="text-text-secondary text-sm mb-1">Total Price</Text>
             <Text className="text-primary text-2xl font-bold">
-              ${(product.price * quantity).toFixed(2)}
+              Rs.{(product.price * quantity).toFixed(2)}
             </Text>
           </View>
           <TouchableOpacity
-            className={`rounded-2xl px-8 py-4 flex-row items-center ${
-              !inStock ? "bg-surface" : "bg-primary"
-            }`}
+            className={`rounded-2xl px-8 py-4 flex-row items-center ${!inStock ? "bg-surface" : "bg-primary"
+              }`}
             activeOpacity={0.8}
             onPress={handleAddToCart}
             disabled={!inStock || isAddingToCart}
@@ -220,11 +217,10 @@ const ProductDetailScreen = () => {
               <ActivityIndicator size="small" color="#121212" />
             ) : (
               <>
-                <Ionicons name="cart" size={24} color={!inStock ? "#666" : "#121212"} />
+                <Ionicons name="cart" size={24} color={!inStock ? "#666" : "#ffffffff"} />
                 <Text
-                  className={`font-bold text-lg ml-2 ${
-                    !inStock ? "text-text-secondary" : "text-background"
-                  }`}
+                  className={`font-bold text-lg ml-2 ${!inStock ? "text-text-secondary" : "text-background"
+                    }`}
                 >
                   {!inStock ? "Out of Stock" : "Add to Cart"}
                 </Text>

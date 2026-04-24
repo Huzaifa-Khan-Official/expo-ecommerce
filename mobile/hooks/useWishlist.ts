@@ -56,7 +56,9 @@ const useWishlist = () => {
     addToWishlist: addToWishlistMutation.mutate,
     removeFromWishlist: removeFromWishlistMutation.mutate,
     isAddingToWishlist: addToWishlistMutation.isPending,
+    addingToWishlistId: addToWishlistMutation.variables,
     isRemovingFromWishlist: removeFromWishlistMutation.isPending,
+    removingFromWishlistId: removeFromWishlistMutation.variables,
   };
 };
 
