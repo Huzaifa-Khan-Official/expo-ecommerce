@@ -13,21 +13,38 @@ const useCart = () => {
   } = useQuery({
     queryKey: ["cart"],
     queryFn: async () => {
-      const { data } = await api.get<{ cart: Cart }>("/cart");
-      return data.cart;
+      console.log("🛒 [useCart] Fetching cart from:", api.defaults.baseURL + "/cart");
+      try {
+        const { data } = await api.get<{ cart: Cart }>("/cart");
+        console.log("✅ [useCart] Cart loaded, items:", data.cart?.items?.length || 0);
+        return data.cart;
+      } catch (error: any) {
+        console.error("❌ [useCart] Error fetching cart:", error?.message);
+        console.error("📍 Error response:", error?.response?.data);
+        throw error;
+      }
     },
   });
 
   const addToCartMutation = useMutation({
     mutationFn: async ({ productId, quantity = 1 }: { productId: string; quantity?: number }) => {
-      const { data } = await api.post<{ cart: Cart }>("/cart", { productId, quantity });
-      return data.cart;
+      console.log("➕ [useCart] Adding to cart:", { productId, quantity });
+      try {
+        const { data } = await api.post<{ cart: Cart }>("/cart", { productId, quantity });
+        console.log("✅ [useCart] Added successfully, cart items:", data.cart?.items?.length || 0);
+        return data.cart;
+      } catch (error: any) {
+        console.error("❌ [useCart] Error adding to cart:", error?.message);
+        console.error("📍 Error response:", error?.response?.data);
+        throw error;
+      }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["cart"] }),
   });
 
   const updateQuantityMutation = useMutation({
     mutationFn: async ({ productId, quantity }: { productId: string; quantity: number }) => {
+      console.log("🔄 [useCart] Updating quantity:", { productId, quantity });
       const { data } = await api.put<{ cart: Cart }>(`/cart/${productId}`, { quantity });
       return data.cart;
     },
@@ -36,6 +53,7 @@ const useCart = () => {
 
   const removeFromCartMutation = useMutation({
     mutationFn: async (productId: string) => {
+      console.log("❌ [useCart] Removing from cart:", productId);
       const { data } = await api.delete<{ cart: Cart }>(`/cart/${productId}`);
       return data.cart;
     },
@@ -44,6 +62,7 @@ const useCart = () => {
 
   const clearCartMutation = useMutation({
     mutationFn: async () => {
+      console.log("🗑️ [useCart] Clearing cart");
       const { data } = await api.delete<{ cart: Cart }>("/cart");
       return data.cart;
     },

@@ -47,11 +47,13 @@ export async function createProduct(req, res) {
 
 export async function getAllProducts(_, res) {
   try {
+    console.log("🔥 GET /products endpoint called");
     // -1 means in desc order: most recent products first
     const products = await Product.find().sort({ createdAt: -1 });
+    console.log(`✅ Found ${products.length} products in database`);
     res.status(200).json(products);
   } catch (error) {
-    console.error("Error fetching products:", error);
+    console.error("❌ Error fetching products:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 }

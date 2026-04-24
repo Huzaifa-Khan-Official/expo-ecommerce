@@ -1,6 +1,11 @@
+import dns from "dns";
 import mongoose from "mongoose";
 import { Product } from "../models/product.model.js";
+import { User } from "../models/user.model.js";
 import { ENV } from "../config/env.js";
+
+dns.setDefaultResultOrder("ipv4first");
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const products = [
   {
@@ -150,6 +155,23 @@ const seedDatabase = async () => {
     // Connect to MongoDB
     await mongoose.connect(ENV.DB_URL);
     console.log("✅ Connected to MongoDB");
+
+    // Create admin user
+    const existingAdmin = await User.findOne({ email: "m.huzaifakhan2004@gmail.com" });
+    if (!existingAdmin) {
+      await User.create({
+        email: "m.huzaifakhan2004@gmail.com",
+        name: "Admin User",
+        clerkId: "user_3CnCo8K6ibAycOFHgJD3NIejcbb",
+        imageUrl: "",
+        stripeCustomerId: "",
+        addresses: [],
+        wishlist: [],
+      });
+      console.log("✅ Admin user created successfully");
+    } else {
+      console.log("⚠️  Admin user already exists");
+    }
 
     // Clear existing products
     await Product.deleteMany({});
