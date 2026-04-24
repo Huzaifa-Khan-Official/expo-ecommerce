@@ -160,7 +160,7 @@ const CartScreen = () => {
 
   return (
     <SafeScreen>
-      <Text className="px-6 pb-5 text-text-primary text-3xl font-bold tracking-tight">Cart</Text>
+      <Text className="px-6 pb-5 mt-2 text-text-primary text-3xl font-bold tracking-tight">Cart</Text>
 
       <ScrollView
         className="flex-1"
